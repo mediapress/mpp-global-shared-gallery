@@ -46,7 +46,5 @@ class MPP_GSG_MetaBox_Helper {
 
 		update_post_meta( $post_id, '_mpp_is_all_upload_allowed', $is_checked );
 	}
-
 }
-
 new MPP_GSG_MetaBox_Helper();

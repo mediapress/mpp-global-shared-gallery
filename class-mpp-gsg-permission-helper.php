@@ -12,7 +12,6 @@ class MPP_GSG_Permission_Helper {
 	}
 
 	public function setup() {
-
 		add_filter( 'mpp_user_can_upload', array( $this, 'can_upload' ), 9, 4 );
 	}
 
@@ -34,8 +33,5 @@ class MPP_GSG_Permission_Helper {
 
 		return $can_do;
 	}
-
-
 }
-
 new MPP_GSG_Permission_Helper();

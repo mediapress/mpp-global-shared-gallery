@@ -85,5 +85,4 @@ class MPP_Global_Shared_Gallery {
 	}
 
 }
-
 MPP_Global_Shared_Gallery::get_instance();
