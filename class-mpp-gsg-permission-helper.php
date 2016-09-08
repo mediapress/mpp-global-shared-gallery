@@ -13,7 +13,7 @@ class MPP_GSG_Permission_Helper {
 
 	public function setup() {
 
-		add_filter( 'mpp_user_can_upload', array( $this,'can_upload' ), 9, 4 );
+		add_filter( 'mpp_user_can_upload', array( $this, 'can_upload' ), 9, 4 );
 	}
 
 	public function can_upload( $can_do, $component, $component_id, $gallery = null ) {
@@ -24,9 +24,9 @@ class MPP_GSG_Permission_Helper {
 		}
 
 		$gallery = mpp_get_gallery( $gallery );
-		$id = $gallery->id;
+		$id      = $gallery->id;
 
-		$is_allowed = get_post_meta( $id,'_mpp_is_all_upload_allowed', true );
+		$is_allowed = get_post_meta( $id, '_mpp_is_all_upload_allowed', true );
 
 		if ( $is_allowed ) {
 			$can_do = true;
@@ -37,4 +37,5 @@ class MPP_GSG_Permission_Helper {
 
 
 }
+
 new MPP_GSG_Permission_Helper();

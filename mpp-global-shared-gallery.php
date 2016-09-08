@@ -81,8 +81,9 @@ class MPP_Global_Shared_Gallery {
 	}
 
 	public function load_text_domain() {
-		load_plugin_textdomain( 'mpp-global-shared-gallery', false, basename( dirname( __FILE__ ) ) . 'languages/'  );
+		load_plugin_textdomain( 'mpp-global-shared-gallery', false, basename( dirname( __FILE__ ) ) . 'languages/' );
 	}
 
 }
+
 MPP_Global_Shared_Gallery::get_instance();
