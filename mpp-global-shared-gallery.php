@@ -58,9 +58,8 @@ class MPP_Global_Shared_Gallery {
 	private function setup() {
 
 		$this->path = plugin_dir_path( __FILE__ );
-
-		add_action( 'plugins_loaded', array( $this, 'load' ) );
-		add_action( 'init', array( $this, 'load_text_domain' ) );
+		add_action( 'mpp_loaded', array( $this, 'load' ) );
+		add_action( 'mpp_init', array( $this, 'load_text_domain' ) );
 	}
 
 	public function load() {
