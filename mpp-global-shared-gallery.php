@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Plugin Name: MediaPress Global Shared Gallery
  * Plugin URI:  https://buddydev.com
@@ -12,26 +11,31 @@
  * Text Domain: mpp-global-shared-gallery
  **/
 
-//exit if access directly
+// Exit if access directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+/**
+ * Class MPP_Global_Shared_Gallery
+ */
 class MPP_Global_Shared_Gallery {
 
 	/**
-	 * @var null take care of class instantiate only once
+	 * Class instance
+	 *
+	 * @var MPP_Global_Shared_Gallery
 	 */
 	private static $instance = null;
 
 	/**
-	 * @var string Plugin directory path
+	 * Plugin directory path
+	 *
+	 * @var string
 	 */
 	private $path;
 
 	/**
-	 * private constructor
-	 *
 	 * MPP_Global_Shared_Gallery constructor.
 	 */
 	private function __construct() {
@@ -39,9 +43,9 @@ class MPP_Global_Shared_Gallery {
 	}
 
 	/**
-	 * return a copy of object of the class if instance is null otherwise return the same object
+	 * Return class instance
 	 *
-	 * @return MPP_Global_Shared_Gallery|null
+	 * @return MPP_Global_Shared_Gallery
 	 */
 	public static function get_instance() {
 
@@ -53,22 +57,23 @@ class MPP_Global_Shared_Gallery {
 	}
 
 	/**
-	 * function initialize functionality by load file, assets and on activate create database table
+	 * Initialize variable and callbacks to necessary actions.
 	 */
 	private function setup() {
-
 		$this->path = plugin_dir_path( __FILE__ );
+
 		add_action( 'mpp_loaded', array( $this, 'load' ) );
 		add_action( 'mpp_init', array( $this, 'load_text_domain' ) );
 	}
 
+	/**
+	 * Load plugin files
+	 */
 	public function load() {
 
-		//load all the necessary files here
-		$files = array(
-			'class-mpp-gsg-permission-helper.php',
-		);
-		//load admin files when user in backend
+		$files = array( 'class-mpp-gsg-permission-helper.php' );
+
+		// Load admin files when user in backend.
 		if ( is_admin() && ! defined( 'DOING_AJAX' ) ) {
 			$files[] = 'class-mpp-gsg-metabox-helper.php';
 		}
@@ -76,12 +81,17 @@ class MPP_Global_Shared_Gallery {
 		foreach ( $files as $file ) {
 			require_once $this->path . $file;
 		}
-
 	}
 
+	/**
+	 * Load text domain
+	 */
 	public function load_text_domain() {
-		load_plugin_textdomain( 'mpp-global-shared-gallery', false, basename( dirname( __FILE__ ) ) . 'languages/' );
+		load_plugin_textdomain(
+			'mpp-global-shared-gallery',
+			false,
+			basename( dirname( __FILE__ ) ) . 'languages/'
+		);
 	}
-
 }
 MPP_Global_Shared_Gallery::get_instance();
