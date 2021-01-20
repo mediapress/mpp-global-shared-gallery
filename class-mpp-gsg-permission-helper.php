@@ -39,23 +39,26 @@ class MPP_GSG_Permission_Helper {
 	 *
 	 * @return bool
 	 */
-	public function can_upload( $can_do, $component, $component_id, $gallery = null ) {
+	public function can_upload( $can_do, $component, $component_id, $gallery ) {
 
-		// If gallery is not given.
-		if ( ! $gallery ) {
+		if ( ! is_user_logged_in() || ! $this->is_shared_gallery( $gallery ) ) {
 			return $can_do;
 		}
 
-		$gallery = mpp_get_gallery( $gallery );
-		$id      = $gallery->id;
+		return true;
+	}
 
-		$is_allowed = get_post_meta( $id, '_mpp_is_all_upload_allowed', true );
+	/**
+	 * CHeck if gallery marked as shared or not.
+	 *
+	 * @param MPP_Gallery $gallery Gallery object.
+	 *
+	 * @return bool
+	 */
+	private function is_shared_gallery( $gallery ) {
+		$is_shared = get_post_meta( $gallery->id, '_mpp_is_all_upload_allowed', true );
 
-		if ( $is_allowed ) {
-			$can_do = true;
-		}
-
-		return $can_do;
+		return $is_shared ? true : false;
 	}
 }
 
