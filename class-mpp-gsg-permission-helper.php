@@ -27,6 +27,8 @@ class MPP_GSG_Permission_Helper {
 	 */
 	public function setup() {
 		add_filter( 'mpp_user_can_upload', array( $this, 'can_upload' ), 9, 4 );
+		add_filter( 'mpp_user_can_edit_media', array( $this, 'can_edit_media' ), 10, 3 );
+		add_filter( 'mpp_user_can_delete_media', array( $this, 'can_delete_media' ), 10, 3 );
 	}
 
 	/**
@@ -46,6 +48,50 @@ class MPP_GSG_Permission_Helper {
 		}
 
 		return true;
+	}
+
+	/**
+	 * Modify media edit permission
+	 *
+	 * @param bool        $allow    Allow media editing or not.
+	 * @param MPP_Media   $media    MediaPress Media object.
+	 * @param MPP_Gallery $gallery  MediaPress Gallery object.
+	 *
+	 * @return bool
+	 */
+	public function can_edit_media( $allow, $media, $gallery ) {
+
+		if ( ! is_user_logged_in() || ! $this->is_shared_gallery( $gallery ) ) {
+			return $allow;
+		}
+
+		if ( get_current_user_id() == $media->user_id ) {
+			$allow = true;
+		}
+
+		return $allow;
+	}
+
+	/**
+	 * Modify media delete permission
+	 *
+	 * @param bool        $allow    Allow media editing or not.
+	 * @param MPP_Media   $media    MediaPress Media object.
+	 * @param MPP_Gallery $gallery  MediaPress Gallery object.
+	 *
+	 * @return bool
+	 */
+	public function can_delete_media( $allow, $media, $gallery ) {
+
+		if ( ! is_user_logged_in() || ! $this->is_shared_gallery( $gallery ) ) {
+			return $allow;
+		}
+
+		if ( get_current_user_id() == $media->user_id ) {
+			$allow = true;
+		}
+
+		return $allow;
 	}
 
 	/**
