@@ -122,6 +122,11 @@ class MPP_GSG_Permission_Helper {
 	 * @return bool
 	 */
 	private function is_shared_gallery( $gallery ) {
+
+		if ( empty( $gallery->id ) ) {
+			return false;
+		}
+
 		$is_shared = get_post_meta( $gallery->id, '_mpp_is_all_upload_allowed', true );
 
 		return $is_shared ? true : false;
