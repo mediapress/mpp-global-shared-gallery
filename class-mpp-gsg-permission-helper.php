@@ -29,6 +29,7 @@ class MPP_GSG_Permission_Helper {
 		add_filter( 'mpp_user_can_upload', array( $this, 'can_upload' ), 9, 4 );
 		add_filter( 'mpp_user_can_edit_media', array( $this, 'can_edit_media' ), 10, 3 );
 		add_filter( 'mpp_user_can_delete_media', array( $this, 'can_delete_media' ), 10, 3 );
+		add_filter( 'mpp_user_can_add_remote_media', array( $this, 'can_add_remote_media' ), 10, 4 );
 	}
 
 	/**
@@ -92,6 +93,25 @@ class MPP_GSG_Permission_Helper {
 		}
 
 		return $allow;
+	}
+
+	/**
+	 * Modify adding remote media permission
+	 *
+	 * @param bool        $can_do       Can add or not.
+	 * @param string      $component    Component.
+	 * @param int         $component_id Component id.
+	 * @param MPP_Gallery $gallery      MediaPress Gallery object.
+	 *
+	 * @return mixed
+	 */
+	public function can_add_remote_media( $can_do, $component, $component_id, $gallery ) {
+
+		if ( ! is_user_logged_in() || ! $this->is_shared_gallery( $gallery ) ) {
+			return $can_do;
+		}
+
+		return true;
 	}
 
 	/**
