@@ -122,6 +122,7 @@ class MPP_GSG_Permission_Helper {
 	 * @return bool
 	 */
 	private function is_shared_gallery( $gallery ) {
+		$gallery = mpp_get_gallery( $gallery );
 
 		if ( empty( $gallery->id ) ) {
 			return false;
